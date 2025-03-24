@@ -2,10 +2,9 @@
 
 # Front contoller
 
-use App\Core\test;
+use App\Utility\Asset;
 
-include "vendor/autoload.php";
+include 'bootstrap/init.php';
 
-// echo $_SERVER['REQUEST_URI'];
-
-new test;
+echo Asset::css('style.css').PHP_EOL;
+echo Asset::js('script.js').PHP_EOL;
