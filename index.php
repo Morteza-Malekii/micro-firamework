@@ -2,9 +2,12 @@
 
 # Front contoller
 
-use App\Utility\Asset;
+use App\Core\Request;
+use App\Core\Routing\Route;
+use App\Core\Routing\Router;
 
 include 'bootstrap/init.php';
 
-echo Asset::css('style.css').PHP_EOL;
-echo Asset::js('script.js').PHP_EOL;
+
+$router = new Router;
+$router->run();
