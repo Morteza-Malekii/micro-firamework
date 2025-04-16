@@ -5,6 +5,7 @@ namespace App\Core;
 class Request
 {
     private $params;
+    private $routeParams;
     private $agent;
     private $ip;
     private $method;
@@ -21,6 +22,18 @@ class Request
     public function params()
     {
         return $this->params;
+    }
+    public function setRouteParams($key,$value)
+    {
+        $this->routeParams[$key] = $value;
+    }
+    public function getRouteParam($key)
+    {
+        return $this->routeParams[$key];
+    }
+    public function getRouteParams()
+    {
+        return $this->routeParams;
     }
     public function agent()
     {

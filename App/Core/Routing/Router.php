@@ -17,16 +17,47 @@ class Router
         $this->request = new Request;
         $this->routes = Route::routes();
         $this->current_route = $this->findRoute($this->request) ?? null;
+        $this->run_route_middleware();
+    }
+
+    private function run_route_middleware()
+    {
+        if (!isset($this->current_route['middleware']) || empty($this->current_route['middleware']))
+            return;
+        $middleware = $this->current_route['middleware'];
+        foreach($middleware as $middleware_class)
+        {
+            $middleware_obj = new $middleware_class;
+            $middleware_obj->handle();
+        }
+        die();
     }
 
     public function findRoute(Request $request)
     {
         foreach($this->routes as $route)
         {
-            if (in_array($request->method(),$route['methods']) and $route['uri'] == $request->uri() )
+            if (!in_array($request->method(),$route['methods']))
+                return false;
+            if ($this->regexMatched($route))
             return $route;
         }
         return null;
+    }
+
+    public function regexMatched($route)
+    {
+        global $request;
+        $pattern = "/^". str_replace(['/','{','}'],['\/','(?<','>[-%\w]+)'],$route['uri'])."$/";
+        $result = preg_match($pattern, $this->request->uri(), $matches);
+        if (!$result)
+            return false;
+        foreach ($matches as $key => $value)
+        {
+            if (!is_int($key))
+            $request->setRouteParams($key,$value);
+        }
+        return true;
     }
 
     public function run()
@@ -70,7 +101,6 @@ class Router
         # action : controller@method
         if (is_string($action))
         $action = explode('@',$action);
-
         # action : ['controller' , 'method']
         if (is_array($action)){
             $class_name = self::BASE_CONTROLLER . $action['0'];
