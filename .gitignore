@@ -1,0 +1,47 @@
+# ==== Composer Dependencies ====
+/vendor/
+
+# ==== Environment Files ====
+.env
+.env.local
+.env.*.php
+
+# ==== IDE and Editor Files ====
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==== System Files ====
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.tmp
+*.swp
+
+# ==== Test and Coverage Files ====
+.phpunit.result.cache
+coverage/
+
+# ==== Local Storage or Cache ====
+/storage/
+storage/*.json
+storage/*.log
+/storage/jsondb/
+/cache/
+/logs/
+
+# ==== Node.js (if front-end exists) ====
+node_modules/
+npm-debug.log*
+
+# ==== Git conflict files ====
+*.orig
+*.rej
+*.patch
+
+# ==== XAMPP / Database Dumps ====
+*.sql
+*.sqlite
+*.imported.sql
