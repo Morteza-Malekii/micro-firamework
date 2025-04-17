@@ -42,6 +42,6 @@ npm-debug.log*
 *.patch
 
 # ==== XAMPP / Database Dumps ====
-*.sql
+#*.sql
 *.sqlite
 *.imported.sql
